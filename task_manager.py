@@ -1,7 +1,5 @@
-# Imports the easygui library.
 import easygui
 
-# Nested dictionary that contains all of the information for the tasks.
 task_dictionary = {
     "T1" : {
         "Title" : "Design Homepage",
@@ -60,6 +58,16 @@ team_member_dictionary = {
     }
 }
 
+def query_cancel(input):
+    """This function makes it so when the user presses the x in the top
+    right corner of any easygui input box, it takes them back to the
+    menu, unless they are already in the menu, where it would just 
+    quit the program."""
+    if input == None:
+        menu()
+    else:
+        return True
+
 def title_to_task_id(task_titles, chosen_task):
     """A function that converts a chosen task title to its
     corresponding task id."""
@@ -103,6 +111,9 @@ def menu():
     user_choice = easygui.buttonbox("What would you like to do?", title, \
     choices = menu_choices)
 
+    if user_choice == None:
+        quit()
+
     function = options[user_choice]()
 
 def add_task():
@@ -123,17 +134,23 @@ def add_task():
     assignee_list = ["JSM", "JLO", "BDI", "None"]
 
     task_title = easygui.enterbox(f"Please enter the title of the task", title)
+    query_cancel(task_title)
+
     task_description = easygui.enterbox(f"Please enter the description for \
 {task_title}", title)
+    query_cancel(task_description)
 
     task_assignee = easygui.buttonbox(f"Please enter the assignee for \
 {task_title}", title, choices = assignee_list)
+    query_cancel(task_assignee)
 
     task_priority = easygui.integerbox(f"Please enter the priority for \
 {task_title} from 1-3", title, lowerbound=1, upperbound=3)
+    query_cancel(task_priority)
 
     task_status = easygui.buttonbox(f"Please enter the status for \
 {task_title}", title, choices = status_list)
+    query_cancel(task_status)
     
     task_dictionary[task_id] = {
         "Title" : task_title,
@@ -144,8 +161,6 @@ def add_task():
     }
 
     team_member_dictionary[task_assignee]["Tasks Assigned"].append(task_id)
-
-    print(team_member_dictionary)
     
     menu()
 
@@ -178,6 +193,7 @@ def update_task():
 
     task_choice = easygui.buttonbox("What task would you like to update \
 a detail of?", "Update Task", task_titles)
+    query_cancel(task_choice)
 
     task_id = title_to_task_id(task_titles, task_choice)
 
@@ -188,6 +204,7 @@ a detail of?", "Update Task", task_titles)
 
     edit_choice = easygui.buttonbox(f"What detail of {task_choice} \
 would you like to edit?", "Edit Choice", task_info)
+    query_cancel(edit_choice)
 
     assignee_list = ["JSM", "JLO", "BDI", "None"]
 
@@ -199,6 +216,7 @@ would you like to edit?", "Edit Choice", task_info)
         task_dictionary[task_id][edit_choice] = easygui.buttonbox(f"Please \
 select the new assignee for {task_choice}", "Update Assignee", \
 choices = assignee_list)
+        query_cancel(task_dictionary[task_id][edit_choice])
 
         team_member_dictionary[old_assignee]["Tasks Assigned"].remove(task_id)
 
@@ -210,19 +228,23 @@ choices = assignee_list)
         task_dictionary[task_id][edit_choice] = easygui.integerbox(f"Please \
 enter the updated priority for {task_choice} from 1 - 3", title = \
 "Update Priority", lowerbound = 1, upperbound = 3)
+        query_cancel(task_dictionary[task_id][edit_choice])
 
     elif edit_choice == "Status":
         task_dictionary[task_id][edit_choice] = easygui.buttonbox(f"Please \
 select the updated status for {task_choice}", title = "Update Status", \
 choices = status_list)
+        query_cancel(task_dictionary[task_id][edit_choice])
 
     elif edit_choice == "Title":
         task_dictionary[task_id][edit_choice] = easygui.enterbox(f"Please \
 enter the new title for {task_choice}", title = "Update Title")
+        query_cancel(task_dictionary[task_id][edit_choice])
 
     else:
         task_dictionary[task_id][edit_choice] = easygui.enterbox(f"Please \
 enter the new description for {task_choice}", title = "Update Description")
+    query_cancel(task_dictionary[task_id][edit_choice])
 
     if task_dictionary[task_id][edit_choice] == "Completed":
         task_assignee = task_dictionary[task_id]["Assignee"]
@@ -230,7 +252,10 @@ enter the new description for {task_choice}", title = "Update Description")
         if task_assignee == "None": 
             pass
         else:
-            team_member_dictionary[task_assignee]["Tasks Assigned"].remove(task_id)
+            team_member_dictionary[task_assignee]["Tasks Assigned"]\
+                .remove(task_id)
+
+        print(team_member_dictionary)
 
     menu()
 
@@ -251,6 +276,7 @@ def search_menu():
     memb_or_task = easygui.buttonbox("Would you like to search by a team \
 member or a task title?", choices = ["Team Member", "Task Title"], \
 title = "Search")
+    query_cancel(memb_or_task)
 
     if memb_or_task == "Task Title":
         search_task(task_titles)
@@ -263,8 +289,9 @@ def search_task(task_titles):
     choosing the title of the task they want to search for, then
     they should see an easygui message box with all of the tasks
     information."""
-    chosen_task = easygui.buttonbox("What task would you like to search for?", \
-    choices = task_titles, title = "Search for task")
+    chosen_task = easygui.buttonbox("What task would you like to search \
+for?", choices = task_titles, title = "Search for task")
+    query_cancel(chosen_task)
 
     task_id = title_to_task_id(task_titles, chosen_task)
     print(task_id)
@@ -279,6 +306,8 @@ def search_task(task_titles):
 
     easygui.msgbox(msg, title = f"Task ID: {task_id}")
 
+    menu()
+
 def search_member():
     """This function allows the user to search for a team member by
     choosing the name of the team member they want to search for, then
@@ -287,6 +316,7 @@ def search_member():
     chosen_member = easygui.buttonbox("Which team member would you \
 like to search for?",choices = ["John Smith", "Jane Love", "Bob Dillon"], \
 title = "Search for Team Member")
+    query_cancel(chosen_member)
 
     for assignee_code, content in team_member_dictionary.items():
         if content["Name"] == chosen_member:
@@ -296,6 +326,8 @@ title = "Search for Team Member")
             msg += f"Tasks Assigned: {content['Tasks Assigned']}\n"
 
     easygui.msgbox(msg, title = chosen_member)
+
+    menu()
 
 def generate_report():
     """This is a function which generates a report for the status' for
@@ -324,10 +356,6 @@ def generate_report():
 
     easygui.msgbox(msg, title = "Project's Progress Report")
 
-
-def quit():
-    """This function will allow the user to quit the program."""
-    easygui.msgbox("Goodbye!", title = "Quit")
-    quit
+    menu()
 
 menu()
