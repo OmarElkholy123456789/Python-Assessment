@@ -303,8 +303,6 @@ enter the new description for {task_choice}", title = "Update Description")
             team_member_dictionary[task_assignee]["Tasks Assigned"]\
                 .remove(task_id)
 
-        print(team_member_dictionary)
-
     # Returns the user to the main menu after updating the task.
     menu()
 
@@ -351,7 +349,6 @@ for?", choices = task_titles, title = "Search for task")
 
     # Finds the task ID for the selected task title.
     task_id = title_to_task_id(task_titles, chosen_task)
-    print(task_id)
 
     # Iterates over all tasks to find the selected one and compile its details.
     for key, content in task_dictionary.items():
