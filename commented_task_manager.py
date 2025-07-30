@@ -2,7 +2,7 @@
 import easygui
 
 # This dictionary holds all of the tasks with their details, organized 
-# by unique task IDs. Each task contains fields like Title, 
+# by unique task IDs. Each task contains information like Title, 
 # Description, Assignee, Priority, and Status.
 task_dictionary = {
     "T1" : {
@@ -80,7 +80,7 @@ def title_to_task_id(task_titles, chosen_task):
     """A function that converts a chosen task title to its
     corresponding task id."""
 
-    # Initialize the task ID number to 1. This will be incremented as 
+    # makes the task ID number to 1. This will be increase by 1 as 
     # we check task titles.
     task_id_num = 1
 
@@ -89,7 +89,7 @@ def title_to_task_id(task_titles, chosen_task):
     check = True
 
     # This while loop iterates through the titles to match the chosen 
-    # task. It increases the task_id_num until it finds the correct 
+    # task. It increases the task_id_num by 1 until it finds the correct 
     # title.
     while check == True:
         for i in task_titles:
@@ -105,6 +105,17 @@ def title_to_task_id(task_titles, chosen_task):
     # Returns the generated task ID for the chosen task.
     return task_id
 
+def quit_program():
+    """When the user presses the quit button in the main menu, the 
+    program will display an easygui message box with the prompt
+    "Goodbye!" then after the user presses OK or the x in the top right,
+    the program will close."""
+    # the program displays an easygui message box with the prompt 
+    # "Goodbye!", then after the user clicks OK or the x in the top 
+    # right, the program will close.
+    easygui.msgbox("Goodbye!", title = "Quit")
+    quit()
+
 def menu():
     """A function which contains the menu for the program. The user can 
     choose to add a new task, update an exsiting task, search for a team
@@ -118,6 +129,7 @@ def menu():
         "Search" : search_menu,
         "Generate Report" : generate_report,
         "Output Tasks" : output_tasks,
+        "Quit" : quit_program
     }
 
     # Initializes an empty list to store the menu choices for display.
@@ -136,10 +148,10 @@ def menu():
     # Calls the function associated with the user's choice.
     if user_choice != None:
         function = options[user_choice]()
-    # If the user cancels the menu, the program quits.
+    # If the user cancels the menu, the program calls the quit_program 
+    # function.
     else:
-        easygui.msgbox("Goodbye!")
-        quit
+        quit_program()
 
 def add_task():
     """This is a function that allows the user to add a task to the task
