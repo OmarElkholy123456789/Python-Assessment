@@ -1,4 +1,4 @@
-# Importing the easygui module to provide simple GUI elements
+# Importing the easygui module
 import easygui
 
 # This dictionary holds all of the tasks with their details, organized 
