@@ -107,6 +107,18 @@ def title_to_task_id(task_titles, chosen_task):
     # Returns the generated task ID for the chosen task.
     return task_id
 
+def string_checker(prompt, title):
+    """This function checks whether the user's input is a valid string 
+    and not a blank string so that it can be properlly handled."""
+    while True:
+        user_input = easygui.enterbox(prompt, title)
+        query_cancel(user_input)
+        if user_input.strip() == "":
+            easygui.msgbox("Invalid Input. Enter a valid string", title = 
+            "Enter Valid Input")
+        else:
+            return user_input
+
 def quit_program():
     """When the user presses the quit button in the main menu, the 
     program will display an easygui message box with the prompt
@@ -180,15 +192,16 @@ def add_task():
     # easygui enterbox. If they enter nothing, they see a message box
     # asking them to enter a title, then it brings them back to the 
     # enter a title enter box.
-    task_title = easygui.enterbox("Please enter the title of the task", \
-    title="Add Task - Title")
-    query_cancel(task_title)
+    task_title = string_checker("Please enter the title of the task", \
+    "Add Task - Title")
 
     # Prompts the user to enter a description for the new task
-    # through an easygui enterbox.
-    task_description = easygui.enterbox(f"Please enter the description for \
-{task_title}", title = "Add Task - Description")
-    query_cancel(task_description)
+    # through an easygui enterbox. If they enter nothing, they see a 
+    # message box asking them to enter a description, then it brings 
+    #them back to the enter a description enter box.
+
+    task_description = string_checker(f"Please enter the description for \
+{task_title}", "Add Task - Description")
 
     # Asks the user to select an assignee for the new task 
     # from the list of assignees, through an easygui buttonbox.
@@ -330,17 +343,15 @@ choices = status_list)
     # If the user chooses to update the title, prompts them for the 
     # new title through an easygui enterbox.
     elif edit_choice == "Title":
-        task_dictionary[task_id][edit_choice] = easygui.enterbox(f"Please \
-enter the new title for {task_choice}", title = "Update Title")
-        query_cancel(task_dictionary[task_id][edit_choice])
+        task_dictionary[task_id][edit_choice] = string_checker(f"Please \
+enter the new title for {task_choice}", "Update Title")
 
     # For all other cases, in this program it can only be if the user 
     # chooses to update the status, the program prompts them to select 
     # a new status through an easygui buttonbox.
     else:
-        task_dictionary[task_id][edit_choice] = easygui.enterbox(f"Please \
-enter the new description for {task_choice}", title = "Update Description")
-    query_cancel(task_dictionary[task_id][edit_choice])
+        task_dictionary[task_id][edit_choice] = string_checker(f"Please \
+enter the new description for {task_choice}", "Update Description")
 
     # If the task status is changed to "Completed", it updates the task 
     # and team member accordingly.
