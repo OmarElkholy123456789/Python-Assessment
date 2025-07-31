@@ -13,28 +13,28 @@ task_dictionary = {
         "Status" : "In Progress"
     },
     "T2" : {
-        "Title" : "Implement Login page",
+        "Title" : "Implement Login Page",
         "Description" : "Create the Login page for the website",
         "Assignee" : "JSM",
         "Priority" : 3,
         "Status" : "Blocked"
     },
     "T3" : {
-        "Title" : "Fix navigation menu",
+        "Title" : "Fix Navigation Menu",
         "Description" : "Fix the navigation menu to be more user-friendly",
         "Assignee" : "None",
         "Priority" : 1,
         "Status" : "Not Started"
     },
     "T4" : {
-        "Title" : "Add payment processing",
+        "Title" : "Add Payment Processing",
         "Description" : "Implement payment processing for the website",
         "Assignee" : "JLO",
         "Priority" : 2,
         "Status" : "In Progress"
     },
     "T5" : {
-        "Title" : "Create an About Us page",
+        "Title" : "Create an About Us Page",
         "Description" : "Create a page with information about the company",
         "Assignee" : "BDI",
         "Priority" : 1,
@@ -155,7 +155,7 @@ def menu():
 
 def add_task():
     """This is a function that allows the user to add a task to the task
-    dictionary. It asks the user for the tasks title, description, 
+    dictionary. It asks the user for the tasks title, description,
     assignee, priority, status, and adds an automatic sequential task
     ID to the task."""
     # Initializes the task counter for assigning a new ID.
@@ -230,7 +230,7 @@ def output_tasks():
             output += f"    {key}: {content[key]}\n"
 
     # Displays the compiled output in an easygui message box.
-    easygui.msgbox(output, title = "Output all Tasks")
+    easygui.msgbox(output, title = "Output All Tasks")
 
     # Returns the user to the main menu after outputting all tasks.
     menu()
@@ -377,7 +377,7 @@ def search_task(task_titles):
     information."""
     # Prompts the user to choose the task they want to search for.
     chosen_task = easygui.buttonbox("What task would you like to search \
-for?", choices = task_titles, title = "Search for task")
+for?", choices = task_titles, title = "Search for Task")
     query_cancel(chosen_task)
 
     # Finds the task ID for the selected task title.
