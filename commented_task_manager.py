@@ -217,7 +217,10 @@ def add_task():
     }
 
     # Adds the new task to the assigned team member's task list.
-    team_member_dictionary[task_assignee]["Tasks Assigned"].append(task_id)
+    if task_assignee == "None":
+        pass
+    else:
+        team_member_dictionary[task_assignee]["Tasks Assigned"].append(task_id)
     
     # Returns the user to the main menu after adding the task.
     menu()
