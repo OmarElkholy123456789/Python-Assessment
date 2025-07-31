@@ -13,28 +13,28 @@ task_dictionary = {
         "Status" : "In Progress"
     },
     "T2" : {
-        "Title" : "Implement Login Page",
+        "Title" : "Implement Login page",
         "Description" : "Create the Login page for the website",
         "Assignee" : "JSM",
         "Priority" : 3,
         "Status" : "Blocked"
     },
     "T3" : {
-        "Title" : "Fix Navigation Menu",
+        "Title" : "Fix navigation menu",
         "Description" : "Fix the navigation menu to be more user-friendly",
         "Assignee" : "None",
         "Priority" : 1,
         "Status" : "Not Started"
     },
     "T4" : {
-        "Title" : "Add Payment Processing",
+        "Title" : "Add payment processing",
         "Description" : "Implement payment processing for the website",
         "Assignee" : "JLO",
         "Priority" : 2,
         "Status" : "In Progress"
     },
     "T5" : {
-        "Title" : "Create an About Us Page",
+        "Title" : "Create an About Us page",
         "Description" : "Create a page with information about the company",
         "Assignee" : "BDI",
         "Priority" : 1,
@@ -44,6 +44,7 @@ task_dictionary = {
 
 # This dictionary contains the details for each team member.
 # It is structured so that each member is referenced by a unique code.
+# The information includes their name, email, and tasks assigned.
 team_member_dictionary = {
     "JSM" : {
         "Name" : "John Smith",
@@ -108,10 +109,10 @@ def title_to_task_id(task_titles, chosen_task):
 def quit_program():
     """When the user presses the quit button in the main menu, the 
     program will display an easygui message box with the prompt
-    "Goodbye!" then after the user presses OK or the x in the top right,
+    "Goodbye!" then after the user presses OK or the X in the top right,
     the program will close."""
     # the program displays an easygui message box with the prompt 
-    # "Goodbye!", then after the user clicks OK or the x in the top 
+    # "Goodbye!", then after the user clicks OK or the X in the top 
     # right, the program will close.
     easygui.msgbox("Goodbye!", title = "Quit")
     quit()
@@ -121,8 +122,8 @@ def menu():
     choose to add a new task, update an exsiting task, search for a team
     member or task, generate a summary report, or ouput the task 
     collection."""
-    # This dictionary maps menu options to their corresponding 
-    # functions.
+    # This dictionary maps the main menu's options to their 
+    # corresponding functions.
     options = {
         "Add Task" : add_task,
         "Update Task" : update_task,
@@ -132,15 +133,17 @@ def menu():
         "Quit" : quit_program
     }
 
-    # Initializes an empty list to store the menu choices for display.
+    # Creates an empty list to store the menu choices for their display
+    # to later be used through an easygui buttonbox.
     menu_choices = []
 
-    # This for loop populates the menu choices based on the available 
-    # options.
+    # This for loop apppens to the menu choices list 
+    # based on the available options in the main menu.
     for key in options:
         menu_choices.append(key)
 
-    # Sets the title for the menu and presents the options to the user.
+    # Sets the title for the menu and presents the options to the user
+    # through an easygui button box.
     title = "Task Managment System - Menu"
     user_choice = easygui.buttonbox("What would you like to do?", title, \
     choices = menu_choices)
@@ -148,8 +151,8 @@ def menu():
     # Calls the function associated with the user's choice.
     if user_choice != None:
         function = options[user_choice]()
-    # If the user cancels the menu, the program calls the quit_program 
-    # function.
+    # If the user cancels the menu by clicking the X in the top right, 
+    # the program calls the quit_program function.
     else:
         quit_program()
 
@@ -166,35 +169,39 @@ def add_task():
     # Generates the task ID using the task counter.
     task_id = (f"T{task_count}")
 
-    # List of possible statuses that can be selected for a task.
+    # List of possible statuses that can be selected for a new task.
     status_list = ["In Progress", "Blocked", "Not Started"]
 
     # List of possible assignees including "None".
     assignee_list = ["JSM", "JLO", "BDI", "None"]
 
-    # Prompts the user to enter the title for the new task.
+    # Prompts the user to enter the title for the new task through an 
+    # easygui enterbox.
     task_title = easygui.enterbox(f"Please enter the title of the task", \
     title = "Add Task - Title")
     query_cancel(task_title)
 
-    # Prompts the user to enter a description for the task.
+    # Prompts the user to enter a description for the new task
+    # through an easygui enterbox.
     task_description = easygui.enterbox(f"Please enter the description for \
 {task_title}", title = "Add Task - Description")
     query_cancel(task_description)
 
-    # Asks the user to select an assignee for the task from the list.
+    # Asks the user to select an assignee for the new task 
+    # from the list of assignees, through an easygui buttonbox.
     task_assignee = easygui.buttonbox(f"Please enter the assignee for \
 {task_title}", title = "Add Task - Assignee", choices = assignee_list)
     query_cancel(task_assignee)
 
-    # Prompts the user to enter the priority of the task 
-    # (between 1 and 3).
+    # Prompts the user to enter the priority of the new task 
+    # (boundaries between 1 and 3), through an easygui integerbox.
     task_priority = easygui.integerbox(f"Please enter the priority for \
 {task_title} from 1-3", title = "Add Task - Priority", lowerbound=1, \
     upperbound=3)
     query_cancel(task_priority)
 
-    # Asks the user to select the status of the task.
+    # Asks the user to select the status of the new task.
+    # through an easygui buttonbox.
     task_status = easygui.buttonbox(f"Please enter the status for \
 {task_title}", title = "Add Task - Status", choices = status_list)
     query_cancel(task_status)
@@ -218,7 +225,7 @@ def add_task():
 def output_tasks():
     """This is a function which prints all of the tasks in a readable
     format in an easygui message box."""
-    # Initializes the output string that will hold all task details.
+    # This is the output string that will hold all task details.
     output = ""
 
     # This for loop iterates over all tasks and adds their details to 
@@ -229,7 +236,7 @@ def output_tasks():
         for key in content:
             output += f"    {key}: {content[key]}\n"
 
-    # Displays the compiled output in an easygui message box.
+    # Displays the entire output in an easygui message box.
     easygui.msgbox(output, title = "Output All Tasks")
 
     # Returns the user to the main menu after outputting all tasks.
@@ -247,7 +254,8 @@ def update_task():
     for task_id, titles in task_dictionary.items():
         task_titles.append(titles["Title"])
 
-    # Prompts the user to select which task to update.
+    # Prompts the user to select which task to update through an
+    # easygui buttonbox.
     task_choice = easygui.buttonbox("What task would you like to update \
 a detail of?", "Update Task", task_titles)
     query_cancel(task_choice)
@@ -261,7 +269,8 @@ a detail of?", "Update Task", task_titles)
     for task_information in task_dictionary[task_id]:
         task_info.append(task_information)
 
-    # Asks the user which detail of the task they would like to edit.
+    # Asks the user which detail of the task they would like to edit
+    # through an easygui buttonbox.
     edit_choice = easygui.buttonbox(f"What detail of {task_choice} \
 would you like to edit?", "Edit Choice", task_info)
     query_cancel(edit_choice)
@@ -271,7 +280,7 @@ would you like to edit?", "Edit Choice", task_info)
     status_list = ["Completed", "In Progress", "Blocked", "Not Started"]
 
     # If the user chooses to edit the assignee, prompts them to select 
-    # a new assignee.
+    # a new assignee through an easygui buttonbox.
     if edit_choice == "Assignee":
         old_assignee = task_dictionary[task_id]["Assignee"]
 
@@ -280,19 +289,24 @@ select the new assignee for {task_choice}", "Update Assignee", \
 choices = assignee_list)
         query_cancel(task_dictionary[task_id][edit_choice])
 
-        # Removes the task from the old assignee's task list.
+        # Removes the task from the old assignee's tasks assigned list, 
+        # unless there wasn't an old assignee ("None").
         if old_assignee == "None":
             pass
         else:
             team_member_dictionary[old_assignee]["Tasks Assigned"]\
             .remove(task_id)
 
-        # Adds the task to the new assignee's task list.
-        team_member_dictionary[task_dictionary[task_id][edit_choice]]\
-        ["Tasks Assigned"].append(task_id)
+        # Adds the task to the new assignee's tasks assigned list, 
+        # unless the new assignee is "None"
+        if task_dictionary[task_id][edit_choice] == "None":
+            pass
+        else:
+            team_member_dictionary[task_dictionary[task_id][edit_choice]]\
+            ["Tasks Assigned"].append(task_id)
 
-    # If the user chooses to edit the priority, prompts for a new 
-    # priority value.
+    # If the user chooses to edit the priority, the program prompts 
+    # for a new priority value through an easygui integerbox.
     elif edit_choice == "Priority":
         task_dictionary[task_id][edit_choice] = easygui.integerbox(f"Please \
 enter the updated priority for {task_choice} from 1 - 3", title = \
@@ -300,7 +314,7 @@ enter the updated priority for {task_choice} from 1 - 3", title = \
         query_cancel(task_dictionary[task_id][edit_choice])
 
     # If the user chooses to update the status, prompts them to select 
-    # a new status.
+    # a new status through an easygui buttonbox.
     elif edit_choice == "Status":
         task_dictionary[task_id][edit_choice] = easygui.buttonbox(f"Please \
 select the updated status for {task_choice}", title = "Update Status", \
@@ -308,14 +322,15 @@ choices = status_list)
         query_cancel(task_dictionary[task_id][edit_choice])
 
     # If the user chooses to update the title, prompts them for the 
-    # new title.
+    # new title through an easygui enterbox.
     elif edit_choice == "Title":
         task_dictionary[task_id][edit_choice] = easygui.enterbox(f"Please \
 enter the new title for {task_choice}", title = "Update Title")
         query_cancel(task_dictionary[task_id][edit_choice])
 
-    # For all other fields (such as Description), prompts for a new 
-    # value.
+    # For all other cases, in this program it can only be if the user 
+    # chooses to update the status, the program prompts them to select 
+    # a new status through an easygui buttonbox.
     else:
         task_dictionary[task_id][edit_choice] = easygui.enterbox(f"Please \
 enter the new description for {task_choice}", title = "Update Description")
@@ -348,7 +363,7 @@ def search_menu():
     # Creates a list to store team member codes.
     members = []
 
-    # Populates the list of task titles from all tasks in the 
+    # appens to the list of task titles from all tasks in the 
     # dictionary.
     for task_id, titles in task_dictionary.items():
         task_titles.append(titles["Title"])
@@ -357,7 +372,8 @@ def search_menu():
     for team_member in team_member_dictionary:
         members.append(team_member)
 
-    # Asks the user whether to search by team member or task title.
+    # Asks the user whether to search by team member or task title
+    # through an easygui buttonbox.
     memb_or_task = easygui.buttonbox("Would you like to search by a team \
 member or a task title?", choices = ["Team Member", "Task Title"], \
 title = "Search")
@@ -375,7 +391,8 @@ def search_task(task_titles):
     choosing the title of the task they want to search for, then
     they should see an easygui message box with all of the tasks
     information."""
-    # Prompts the user to choose the task they want to search for.
+    # Prompts the user to choose the task they want to search for
+    # through an easygui buttonbox.
     chosen_task = easygui.buttonbox("What task would you like to search \
 for?", choices = task_titles, title = "Search for Task")
     query_cancel(chosen_task)
@@ -383,7 +400,7 @@ for?", choices = task_titles, title = "Search for Task")
     # Finds the task ID for the selected task title.
     task_id = title_to_task_id(task_titles, chosen_task)
 
-    # Iterates over all tasks to find the selected one and compile its 
+    # Iterates over all tasks to find the selected one and append its 
     # details.
     for key, content in task_dictionary.items():
         if task_id == key:
@@ -405,13 +422,14 @@ def search_member():
     choosing the name of the team member they want to search for, then
     they should see an easygui message box with all of the team members
     details."""
-    # Prompts the user to select which team member to search for.
+    # Prompts the user to select which team member to search for
+    # through an easygui buttonbox.
     chosen_member = easygui.buttonbox("Which team member would you \
 like to search for?",choices = ["John Smith", "Jane Love", "Bob Dillon"], \
 title = "Search for Team Member")
     query_cancel(chosen_member)
 
-    # Iterates through all team members and compiles the selected 
+    # Iterates through all team members and appends the selected 
     # member's details.
     for assignee_code, content in team_member_dictionary.items():
         if content["Name"] == chosen_member:
@@ -431,13 +449,15 @@ def generate_report():
     """This is a function which generates a report for the status' for
     all of the tasks, including the number of tasks completed, in 
     progress, blocked, and not started."""
-    # Initializes counters for each possible task status.
+    # Creates counters for each possible task status.
     completed_tasks = 0
     in_progress_tasks = 0
     blocked_tasks = 0
     not_started_tasks = 0
 
-    # Iterates through all tasks and updates the status counters.
+    # Iterates through all tasks and updates the status counters by 
+    # adding 1 to each status counter for every corresponding 
+    # task found.
     for key, details in task_dictionary.items():
         if  details['Status'] == "Completed":
             completed_tasks += 1
