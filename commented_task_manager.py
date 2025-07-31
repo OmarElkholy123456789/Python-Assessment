@@ -79,7 +79,8 @@ def query_cancel(input):
 
 def title_to_task_id(task_titles, chosen_task):
     """A function that converts a chosen task title to its
-    corresponding task id."""
+    corresponding task id, and saves the task id under a variable
+    called "task_id, which it returns."""
 
     # makes the task ID number to 1. This will be increase by 1 as 
     # we check task titles.
@@ -118,10 +119,10 @@ def quit_program():
     quit()
 
 def menu():
-    """A function which contains the menu for the program. The user can 
-    choose to add a new task, update an exsiting task, search for a team
-    member or task, generate a summary report, or ouput the task 
-    collection."""
+    """A function which contains the main menu for the program. The 
+    user can choose to add a new task, update an exsiting task, search
+    for a team member or task, generate a summary report, ouput all of 
+    the tasks, or quit the program."""
     # This dictionary maps the main menu's options to their 
     # corresponding functions.
     options = {
@@ -176,9 +177,11 @@ def add_task():
     assignee_list = ["JSM", "JLO", "BDI", "None"]
 
     # Prompts the user to enter the title for the new task through an 
-    # easygui enterbox.
-    task_title = easygui.enterbox(f"Please enter the title of the task", \
-    title = "Add Task - Title")
+    # easygui enterbox. If they enter nothing, they see a message box
+    # asking them to enter a title, then it brings them back to the 
+    # enter a title enter box.
+    task_title = easygui.enterbox("Please enter the title of the task", \
+    title="Add Task - Title")
     query_cancel(task_title)
 
     # Prompts the user to enter a description for the new task
