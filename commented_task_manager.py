@@ -341,14 +341,18 @@ choices = status_list)
         query_cancel(task_dictionary[task_id][edit_choice])
 
     # If the user chooses to update the title, prompts them for the 
-    # new title through an easygui enterbox.
+    # new title through an easygui enterbox. If they enter nothing, they
+    # see a message box asking them to enter a title, then it brings 
+    #them back to the enter a title enter box.
     elif edit_choice == "Title":
         task_dictionary[task_id][edit_choice] = string_checker(f"Please \
 enter the new title for {task_choice}", "Update Title")
 
     # For all other cases, in this program it can only be if the user 
-    # chooses to update the status, the program prompts them to select 
-    # a new status through an easygui buttonbox.
+    # chooses to update the description, the program prompts them to select 
+    # a new status through an easygui buttonbox. If they enter nothing,
+    # message box asking them to enter a description, then it brings 
+    #them back to the enter a description enter box.
     else:
         task_dictionary[task_id][edit_choice] = string_checker(f"Please \
 enter the new description for {task_choice}", "Update Description")
