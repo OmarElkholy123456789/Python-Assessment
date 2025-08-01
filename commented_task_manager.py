@@ -109,14 +109,22 @@ def title_to_task_id(task_titles, chosen_task):
 
 def string_checker(prompt, title):
     """This function checks whether the user's input is a valid string 
-    and not a blank string so that it can be properlly handled."""
+    and not just a empty string, so that the input can be used 
+    appropriately."""
+    # While the while loop is true, it will ask the user for their 
+    # input, and also includes the query cancel function.
     while True:
         user_input = easygui.enterbox(prompt, title)
         query_cancel(user_input)
+        # If the user enters nothing, the easygui message box will 
+        # appear letting them know to enter a proper string, then they
+        # will be brought back to the original user input easygui enter
+        # box.
         if user_input.strip() == "":
             easygui.msgbox("Invalid Input. Enter a valid string", title = 
             "Enter Valid Input")
         else:
+            # Returns the users input from the easygui enter box.
             return user_input
 
 def quit_program():
@@ -174,8 +182,9 @@ def add_task():
     dictionary. It asks the user for the tasks title, description,
     assignee, priority, status, and adds an automatic sequential task
     ID to the task."""
-    # Initializes the task counter for assigning a new ID.
+    # Creates the task counter for assigning a new ID.
     task_count = 1
+    # Adds 1 to the counter for every task in the task dictionary.
     for key in task_dictionary:
         task_count += 1
     
@@ -199,7 +208,6 @@ def add_task():
     # through an easygui enterbox. If they enter nothing, they see a 
     # message box asking them to enter a description, then it brings 
     #them back to the enter a description enter box.
-
     task_description = string_checker(f"Please enter the description for \
 {task_title}", "Add Task - Description")
 
@@ -242,8 +250,8 @@ def add_task():
     menu()
 
 def output_tasks():
-    """This is a function which prints all of the tasks in a readable
-    format in an easygui message box."""
+    """This is a function which prints all of the tasks and their 
+    information in a readable format in an easygui message box."""
     # This is the output string that will hold all task details.
     output = ""
 
@@ -393,7 +401,7 @@ def search_menu():
     # Creates a list to store team member codes.
     members = []
 
-    # appens to the list of task titles from all tasks in the 
+    # appends to the list of task titles from all tasks in the 
     # dictionary.
     for task_id, titles in task_dictionary.items():
         task_titles.append(titles["Title"])
