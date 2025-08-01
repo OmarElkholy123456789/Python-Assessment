@@ -44,7 +44,7 @@ task_dictionary = {
 
 # This dictionary contains the details for each team member.
 # It is structured so that each member is referenced by a unique code.
-# The information includes their name, email, and tasks assigned.
+# The information includes their name, email, and their tasks assigned.
 team_member_dictionary = {
     "JSM" : {
         "Name" : "John Smith",
@@ -96,7 +96,7 @@ def title_to_task_id(task_titles, chosen_task):
     while check == True:
         for i in task_titles:
             if i != chosen_task:
-                task_id_num += 1               
+                task_id_num += 1           
             else:
                 check = False
                 break
@@ -352,16 +352,16 @@ choices = status_list)
     # If the user chooses to update the title, prompts them for the 
     # new title through an easygui enterbox. If they enter nothing, they
     # see a message box asking them to enter a title, then it brings 
-    #them back to the enter a title enter box.
+    # them back to the enter a title enter box.
     elif edit_choice == "Title":
         task_dictionary[task_id][edit_choice] = string_checker(f"Please \
 enter the new title for {task_choice}", "Update Title")
 
     # For all other cases, in this program it can only be if the user 
-    # chooses to update the description, the program prompts them to select 
-    # a new status through an easygui buttonbox. If they enter nothing,
-    # message box asking them to enter a description, then it brings 
-    #them back to the enter a description enter box.
+    # chooses to update the description, the program prompts them to 
+    # select a new status through an easygui buttonbox. If they enter 
+    # nothing, message box asking them to enter a description, then it 
+    # brings them back to the enter a description enter box.
     else:
         task_dictionary[task_id][edit_choice] = string_checker(f"Please \
 enter the new description for {task_choice}", "Update Description")
@@ -499,7 +499,8 @@ def generate_report():
             not_started_tasks += 1
 
     # Prepares the report message string to summarize all status counts.
-    msg = f"Tasks Completed: {completed_tasks}\n"
+    msg = "Here is the generated progress report:\n\n"
+    msg += f"Tasks Completed: {completed_tasks}\n"
     msg += f"Tasks in Progress: {in_progress_tasks}\n"
     msg += f"Tasks Blocked: {blocked_tasks}\n"
     msg += f"Tasks Not Started: {not_started_tasks}"
