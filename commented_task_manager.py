@@ -302,11 +302,15 @@ would you like to edit?", "Edit Choice", task_info)
     # a new assignee through an easygui buttonbox.
     if edit_choice == "Assignee":
         old_assignee = task_dictionary[task_id]["Assignee"]
-
-        task_dictionary[task_id][edit_choice] = easygui.buttonbox(f"Please \
+        new_assignee = easygui.buttonbox(f"Please \
 select the new assignee for {task_choice}", "Update Assignee", \
 choices = assignee_list)
-        query_cancel(task_dictionary[task_id][edit_choice])
+    # If they click the X in the top right and so their input is None,
+    # nothing happens, if they do click a new assignee, it will append
+    # the new assignee to the task dictionary.
+        if new_assignee != None:
+            task_dictionary[task_id][edit_choice] = new_assignee
+        query_cancel(new_assignee)
 
         # Removes the task from the old assignee's tasks assigned list, 
         # unless there wasn't an old assignee ("None").
@@ -335,10 +339,15 @@ enter the updated priority for {task_choice} from 1 - 3", title = \
     # If the user chooses to update the status, prompts them to select 
     # a new status through an easygui buttonbox.
     elif edit_choice == "Status":
-        task_dictionary[task_id][edit_choice] = easygui.buttonbox(f"Please \
+        new_status = easygui.buttonbox(f"Please \
 select the updated status for {task_choice}", title = "Update Status", \
 choices = status_list)
-        query_cancel(task_dictionary[task_id][edit_choice])
+    # If they click the X in the top right and so their input is None,
+    # nothing happens, if they do click a new status, it will append
+    # the new status to the task dictionary.
+        if new_status != None:
+            task_dictionary[task_id][edit_choice] = new_status
+        query_cancel(new_status)
 
     # If the user chooses to update the title, prompts them for the 
     # new title through an easygui enterbox. If they enter nothing, they
